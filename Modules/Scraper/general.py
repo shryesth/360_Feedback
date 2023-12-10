@@ -22,7 +22,7 @@ def scrape_website(url):
         result = {
             'h1': h1_tags[0],
             'h2': h2_tags[0],
-            'p': p_tags
+            'p': ' '.join(p_tags)
         }
 
         return result
@@ -33,7 +33,7 @@ def scrape_website(url):
         return None
 
 # Example usage:
-url_to_scrape = "https://www.abplive.com/news/india/mp-chhattisgarh-rajasthan-bjp-cm-suspense-raman-singh-balaknath-met-jp-nadda-prahlad-patel-met-shivraj-chouhan-2556415"
+url_to_scrape = "https://www.indiatoday.in/magazine/nation/story/20230717-shifting-to-election-gear-baghel-blows-the-bugle-2403446-2023-07-07?utm_source=rss"
 scraped_data = scrape_website(url_to_scrape)
 
 if scraped_data:
