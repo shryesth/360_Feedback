@@ -107,7 +107,7 @@ def summarize_news(model, tokenizer, content_string, device):
         length_penalty = 4.0
     elif total_words >= 150:
         num_beams = 4
-        length_penalty = 2.0
+        length_penalty = 3.3
     elif total_words >= 100:
         num_beams = 3
         length_penalty = 1.2
