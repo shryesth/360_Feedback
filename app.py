@@ -16,7 +16,7 @@ def getLLamaresponse(input_text,no_words,blog_style):
     ## Prompt Template
 
     template="""
-        Write a blog for {blog_style} job profile for a topic {input_text}
+        Write a summary in {blog_style} tone for {input_text}
         within {no_words} words.
             """
     
@@ -32,15 +32,14 @@ def getLLamaresponse(input_text,no_words,blog_style):
 
 
 
-
-st.set_page_config(page_title="Generate Blogs",
+st.set_page_config(page_title="Generate Summary",
                     page_icon='🤖',
                     layout='centered',
                     initial_sidebar_state='collapsed')
 
-st.header("Generate Blogs 🤖")
+st.header("Generate Summary 🤖")
 
-input_text=st.text_input("Enter the Blog Topic")
+input_text=st.text_input("Enter the Content")
 
 ## creating to more columns for additonal 2 fields
 
@@ -49,8 +48,8 @@ col1,col2=st.columns([5,5])
 with col1:
     no_words=st.text_input('No of Words')
 with col2:
-    blog_style=st.selectbox('Writing the blog for',
-                            ('Researchers','Data Scientist','Common People'),index=0)
+    blog_style=st.selectbox('Summarizing according to',
+                            ('Casual','Formal'),index=0)
     
 submit=st.button("Generate")
 
