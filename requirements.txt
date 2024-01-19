@@ -32,3 +32,6 @@ git+https://github.com/openai/whisper.git
 langdetect
 pytube
 PySimpleGUI
+pillow
+pytesseract
+tkinter
