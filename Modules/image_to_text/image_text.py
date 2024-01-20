@@ -1,65 +1,30 @@
-import tkinter as tk
-from tkinter import filedialog
-from PIL import Image, ImageTk
+from PIL import Image
 import pytesseract
 
-class ImageToTextConverter:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Image to Text Converter")
+def image_to_text(image_path):
+    image = Image.open(image_path)
+    text = pytesseract.image_to_string(image)
+    return text
 
-        self.image_path = ""
-        self.text_result = tk.StringVar()
+def save_to_txt_file(text):
+    output_file = input("Enter the output file location (including file name and .txt extension): ")
+    if output_file:
+        with open(output_file, "w") as file:
+            file.write(text)
+            print("Text saved to {}".format(output_file))
 
-        # Create widgets
-        self.create_widgets()
+def main():
+    image_path = input("Enter the image file location: ")
 
-    def create_widgets(self):
-        # Image display area
-        self.image_label = tk.Label(self.root)
-        self.image_label.pack()
+    if image_path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        text = image_to_text(image_path)
+        print("Text extracted from the image:\n{}".format(text))
 
-        # Select Image button
-        select_button = tk.Button(self.root, text="Select Image", command=self.select_image)
-        select_button.pack()
-
-        # Convert button
-        convert_button = tk.Button(self.root, text="Convert", command=self.convert_image_to_text)
-        convert_button.pack()
-
-        # Text result display area
-        result_label = tk.Label(self.root, textvariable=self.text_result)
-        result_label.pack()
-
-    def select_image(self):
-        self.image_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif")])
-        if self.image_path:
-            self.display_image()
-
-    def display_image(self):
-        image = Image.open(self.image_path)
-        image.thumbnail((300, 300))  # Resize for display
-        photo = ImageTk.PhotoImage(image)
-        self.image_label.config(image=photo)
-        self.image_label.image = photo
-
-    def convert_image_to_text(self):
-        if self.image_path:
-            image = Image.open(self.image_path)
-            text = pytesseract.image_to_string(image)
-            self.text_result.set(text)
-
-            # Save the text to a .txt file
-            self.save_to_txt_file(text)
-
-    def save_to_txt_file(self, text):
-        output_file = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
-        if output_file:
-            with open(output_file, "w") as file:
-                file.write(text)
-                tk.messagebox.showinfo("Success", "Text saved to {}".format(output_file))
+        save_option = input("Do you want to save the text to a file? (yes/no): ").lower()
+        if save_option == 'yes':
+            save_to_txt_file(text)
+    else:
+        print("Please provide a valid image file.")
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = ImageToTextConverter(root)
-    root.mainloop()
+    main()
