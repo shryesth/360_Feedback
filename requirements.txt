@@ -33,3 +33,4 @@ langdetect
 pytube
 pillow
 pytesseract
+youtube-transcript-api
