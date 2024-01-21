@@ -34,3 +34,5 @@ pytube
 pillow
 pytesseract
 youtube-transcript-api
+smtplib
+email.message
